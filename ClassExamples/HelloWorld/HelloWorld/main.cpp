@@ -20,6 +20,10 @@
 
 using namespace std;
 
+// Declare functions before they are used (Forward declare)
+// Global scope
+float myFunction(float x);
+
 int main() {
     
     // Creating a variable:
@@ -32,5 +36,39 @@ int main() {
     cout << x << endl;
     cout << y << endl;
     cout << z << endl;
+    
+    // Creating arrays
+    static const int size = 5;
+    
+    float array[size] = {10.f,5.f,3.f,2.f,1.f}; // "declare"
+    
+    
+    // Conditional
+    if (x > 5){
+        cout << "Cool!" << endl;
+    }
+    else if (x < 0){
+        cout << "Nice!" << endl;
+    }
+    else {
+        cout << "Wow!" << endl;
+    }
+    
+    
+    
+    // Loops
+    for (int n = 0; n < 5 ; ++n){
+        float q = array[n];
+        float w = myFunction(q);
+        cout << w << endl;
+    }
+    
+    
     return 0;
+}
+
+
+float myFunction(float x){
+    float y = x + 100.f;
+    return y;
 }
