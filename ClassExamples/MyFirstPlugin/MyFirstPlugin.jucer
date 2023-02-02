@@ -5,6 +5,10 @@
               displaySplashScreen="1">
   <MAINGROUP id="SXW078" name="MyFirstPlugin">
     <GROUP id="{636F57BF-C1D3-A3F0-660A-7FA95ECF2C6D}" name="Source">
+      <FILE id="oM52mw" name="DistortionEffect.cpp" compile="1" resource="0"
+            file="Source/DistortionEffect.cpp"/>
+      <FILE id="blMOFT" name="DistortionEffect.h" compile="0" resource="0"
+            file="Source/DistortionEffect.h"/>
       <FILE id="ZrpJzu" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="fe9qcz" name="PluginProcessor.h" compile="0" resource="0"

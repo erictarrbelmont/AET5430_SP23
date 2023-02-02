@@ -136,22 +136,35 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+   
+    
+    auto drive = 20.f;
+    
+    //distortion.processBlock(buffer,drive);
+    
+    int numSamples = buffer.getNumSamples();
+    
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        
-        // Have a loop to go through each of the samples in our signal
-        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
-        {
-            float x = buffer.getWritePointer(channel) [n];
-            
-            x = (2.f/M_PI) * atan(x * 25.f); // Distortion
-            
-            // scales amplitude by -12 dB
-            buffer.getWritePointer(channel) [n] = x;
-        }
-        
+        auto * channelData = buffer.getWritePointer(channel);
+        // Do something with the data
+        distortion.processInPlace(channelData, drive, numSamples);
         
     }
+    
+//    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+//    {
+//        // Have a loop to go through each of the samples in our signal
+//        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
+//        {
+//            float x = buffer.getWritePointer(channel) [n];
+//
+//            x = distortion.processSample(x, drive);
+//
+//            // scales amplitude by -12 dB
+//            buffer.getWritePointer(channel) [n] = x;
+//        }
+//    }
 }
 
 //==============================================================================
