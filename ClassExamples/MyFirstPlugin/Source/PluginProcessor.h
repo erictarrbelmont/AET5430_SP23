@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "DistortionEffect.h"
+#include "TremoloEffect.h"
 
 //==============================================================================
 /**
@@ -57,6 +58,7 @@ public:
 private:
     
     DistortionEffect distortion;
+    TremoloEffect   tremolo;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MyFirstPluginAudioProcessor)

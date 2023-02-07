@@ -5,9 +5,9 @@
               displaySplashScreen="1">
   <MAINGROUP id="SXW078" name="MyFirstPlugin">
     <GROUP id="{636F57BF-C1D3-A3F0-660A-7FA95ECF2C6D}" name="Source">
-      <FILE id="oM52mw" name="DistortionEffect.cpp" compile="1" resource="0"
+      <FILE id="OXtMqe" name="DistortionEffect.cpp" compile="1" resource="0"
             file="Source/DistortionEffect.cpp"/>
-      <FILE id="blMOFT" name="DistortionEffect.h" compile="0" resource="0"
+      <FILE id="fgtaMo" name="DistortionEffect.h" compile="0" resource="0"
             file="Source/DistortionEffect.h"/>
       <FILE id="ZrpJzu" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -16,6 +16,9 @@
       <FILE id="G5ziqK" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="ayi9oR" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="nEXWfm" name="TremoloEffect.cpp" compile="1" resource="0"
+            file="Source/TremoloEffect.cpp"/>
+      <FILE id="DAa0v0" name="TremoloEffect.h" compile="0" resource="0" file="Source/TremoloEffect.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

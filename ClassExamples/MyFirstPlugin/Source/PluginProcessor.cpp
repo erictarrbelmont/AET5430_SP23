@@ -95,6 +95,8 @@ void MyFirstPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    tremolo.prepareToPlay(sampleRate, samplesPerBlock);
+    
 }
 
 void MyFirstPluginAudioProcessor::releaseResources()
@@ -137,10 +139,12 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         buffer.clear (i, 0, buffer.getNumSamples());
 
    
-    
-    auto drive = 20.f;
-    
+    auto drive = 10.f;
+    distortion.setDrive(drive);
     //distortion.processBlock(buffer,drive);
+    
+    float rate = 1.f;
+    tremolo.setRate(rate);
     
     int numSamples = buffer.getNumSamples();
     
@@ -148,7 +152,8 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     {
         auto * channelData = buffer.getWritePointer(channel);
         // Do something with the data
-        distortion.processInPlace(channelData, drive, numSamples);
+        //distortion.processInPlace(channelData, numSamples);
+        tremolo.processInPlace(channelData, numSamples, channel);
         
     }
     

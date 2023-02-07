@@ -12,13 +12,13 @@
 
 
 
-float DistortionEffect::processSample(float x, float drive)
+float DistortionEffect::processSample(float x)
 {
     x = (2.f/M_PI) * atan(x * drive); // Distortion
     return x;
 }
 
-void DistortionEffect::processBlock(juce::AudioBuffer<float> &buffer, float drive)
+void DistortionEffect::processBlock(juce::AudioBuffer<float> &buffer)
 {
     const int numChannels = buffer.getNumChannels();
     const int numSamples = buffer.getNumSamples();
@@ -28,19 +28,23 @@ void DistortionEffect::processBlock(juce::AudioBuffer<float> &buffer, float driv
         for (int n = 0; n < numSamples ; ++n){
             
             float x = buffer.getWritePointer(c) [n];
-            x = (2.f/M_PI) * atan(x * drive); // Distortion
+            //x = (2.f/M_PI) * atan(x * drive); // Distortion
+            
+            x = processSample(x);
+            
             buffer.getWritePointer(c) [n] = x;
         }
         
     }
 }
 
-void DistortionEffect::processInPlace(float * buffer, float drive, const int numSamples){
+void DistortionEffect::processInPlace(float * buffer, const int numSamples){
     
     for (int n = 0 ; n < numSamples; ++n){
-        float x = 2.f * (*buffer); // de-reference current value
+        float x = (*buffer); // de-reference current value
         
-        x = (2.f/M_PI) * atan(x * drive); // Distortion
+        //x = (2.f/M_PI) * atan(x * drive); // Distortion
+        x = processSample(x);
         
         *buffer = x; // over-write current value
         
@@ -50,3 +54,23 @@ void DistortionEffect::processInPlace(float * buffer, float drive, const int num
 }
 
 
+
+
+void DistortionEffect::setDrive(float newDrive){
+    
+//    if (newDrive >= 1.f)
+//    {
+//        if (newDrive <= 10.f)
+//        {
+//            drive = newDrive;
+//        }
+//    }
+    
+    // JUCE Way
+    //newDrive = juce::jmax(newDrive, 1.f);
+    //newDrive = juce::jmin(newDrive, 10.f);
+    
+    drive = juce::jlimit(1.f, 10.f, newDrive);
+    
+    
+}

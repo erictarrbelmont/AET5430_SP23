@@ -17,13 +17,16 @@ class DistortionEffect
   
 public:
     
-    float processSample(float x, float drive);
+    float processSample(float x);
     
-    void processBlock(juce::AudioBuffer<float> & buffer, float drive);
+    void processBlock(juce::AudioBuffer<float> & buffer);
     
-    void processInPlace(float * buffer, float drive, const int numSamples);
+    void processInPlace(float * buffer, const int numSamples);
+    
+    void setDrive (float newDrive);
     
 private:
     
+    float drive = 1.f;
     
 };
