@@ -10,8 +10,7 @@
 
 #include "EchoEffect.h"
 
-
-float DelayEffect::processSample(float x, const int c){
+float RevDelayEffect::processSample(float x, const int c){
     
     // one sample of delay
     int currentIndex = i[c];
@@ -20,15 +19,69 @@ float DelayEffect::processSample(float x, const int c){
     delayBuffer[currentIndex][c] = x;
     
     // Increment Index
-    i[c]++;
-    if (i[c] > 9999){
-        i[c] = 0; // circular indexing
+    i[c] += increment;
+    if (i[c] >= delaySamples){
+        increment = -1;
+        i[c] += increment; // circular indexing
+    }
+    if (i[c] <= 0){
+        increment = 1;
+        i[c] += increment;
     }
     
     return y;
     
 }
 
+
+void RevDelayEffect::setDelayMS(float delayMS){
+    
+    float delaySec = delayMS / 1000.f;
+    delaySamples = delaySec * Fs;
+    delaySamples = juce::jmin(delaySamples,23999);
+}
+
+
+
+
+float DelayEffect::processSample(float x, const int c){
+    
+    // one sample of delay
+    //int currentIndex = i[c];
+    float y = delayBuffer[r[c]][c];
+    
+    delayBuffer[w[c]][c] = x;
+    
+    // Increment Index
+    w[c]++;
+    if (w[c] >= SIZE){
+        w[c] = 0; // circular indexing
+    }
+    
+    // Increment Index
+    r[c]++;
+    if (r[c] >= SIZE){
+        r[c] = 0; // circular indexing
+    }
+    return y;
+    
+}
+
+
+void DelayEffect::setDelayMS(float delayMS){
+    
+    float delaySec = delayMS / 1000.f;
+    delaySamples = delaySec * Fs;
+    delaySamples = juce::jmin(delaySamples,23999);
+    r[0] = w[0] - delaySamples;
+    if (r[0] < 0){
+        r[0] += SIZE;
+    }
+    r[1] = w[1] - delaySamples;
+    if (r[1] < 0){
+        r[1] += SIZE;
+    }
+}
 
 
 float EchoEffect::processSample(float x, const int c){

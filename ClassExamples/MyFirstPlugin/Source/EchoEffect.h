@@ -13,6 +13,31 @@
 #include <JuceHeader.h>
 
 
+class RevDelayEffect {
+ 
+public:
+    
+    float processSample(float x, const int c);
+    
+    void setDelayMS(float delayMS);
+    
+    void prepareToPlay(double sampleRate, int bufferSize){
+        Fs = (float) sampleRate;
+    }
+    
+private:
+    
+    // One sample of delay
+    static const int SIZE = 24000;
+    float delayBuffer[SIZE][2] = {0.f}; // left and right channels
+    int i[2] = {0};
+    int increment = 1;
+    
+    
+    int delaySamples = 10000;
+    float Fs = 48000.f;
+};
+
 
 class DelayEffect {
  
@@ -20,11 +45,24 @@ public:
     
     float processSample(float x, const int c);
     
+    void setDelayMS(float delayMS);
+    
+    void prepareToPlay(double sampleRate, int bufferSize){
+        Fs = (float) sampleRate;
+        r[0] = w[0] - delaySamples;
+        r[1] = w[1] - delaySamples;
+    }
+    
 private:
     
     // One sample of delay
-    float delayBuffer[10000][2] = {0.f}; // left and right channels
-    int i[2] = {0}; // index for buffer
+    static const int SIZE = 24000;
+    float delayBuffer[SIZE][2] = {0.f}; // left and right channels
+    int w[2] = {SIZE-1}; // write index for buffer (input), initialize to end of buffer
+    int r[2] = {0}; // read index for buffer (output)
+    
+    int delaySamples = 10000;
+    float Fs = 48000.f;
 };
 
 
@@ -40,8 +78,16 @@ public:
     
     void setWet(float newWet) {wet = newWet;}
     
+    void prepareToPlay(double sampleRate, int bufferSize){
+        delay.prepareToPlay(sampleRate, bufferSize);
+    }
+    
+    void setDelayMS(float delayMS){
+        delay.setDelayMS(delayMS);  
+    }
+    
 private:
-    DelayEffect delay;
+    RevDelayEffect delay;
     
     float wet = 0.5f;
     

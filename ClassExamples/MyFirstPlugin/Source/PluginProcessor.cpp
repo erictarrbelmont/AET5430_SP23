@@ -96,7 +96,7 @@ void MyFirstPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     tremolo.prepareToPlay(sampleRate, samplesPerBlock);
-    
+    echo.prepareToPlay(sampleRate, samplesPerBlock);
 }
 
 void MyFirstPluginAudioProcessor::releaseResources()
@@ -148,8 +148,9 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     float depth = 0.5f;
     tremolo.setDepth(depth);
     
-    float wet = 0.5f;
+    float wet = 0.6f;
     echo.setWet(wet);
+    echo.setDelayMS(400.f);
     
     int numSamples = buffer.getNumSamples();
     
