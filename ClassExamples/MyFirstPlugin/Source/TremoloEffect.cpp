@@ -14,7 +14,7 @@
 float TremoloEffect::processSample(float x, const int c){
     
     // LFO (modulator)
-    float m = 0.5f * sin(currentAngle[c]) + 0.5f;
+    float m = lfoAmp * sin(currentAngle[c]) + lfoOffset;
     
     float y = x * m;
     
@@ -61,9 +61,16 @@ void TremoloEffect::processInPlace(float * buffer, const int numSamples, const i
 
 void TremoloEffect::setRate(float freqHz){
     
-    angleChange = freqHz * M_2_PI / Fs;
+    angleChange = freqHz * piX2 / Fs;
     //M_2_PI = 2.f * M_PI
     //M_PI_2 = M_PI / 2.f
+}
+
+void TremoloEffect::setDepth(float depth){
+    // note: depth is from 0-1
+    lfoAmp = depth / 2.f;
+    lfoOffset = 1.f - lfoAmp;
+    
 }
 
 
@@ -74,8 +81,8 @@ void TremoloEffect::prepareToPlay(float sampleRate, float samplesPerBlock){
 
 void TremoloEffect::updateCurrentAngle(const int c){
     currentAngle[c] += angleChange;
-    if (currentAngle[c] > M_2_PI){
-        currentAngle[c] -= M_2_PI;
+    if (currentAngle[c] > piX2){
+        currentAngle[c] -= piX2;
     }
 }
 

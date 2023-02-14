@@ -24,6 +24,8 @@ public:
     
     void setRate(float freqHz);
     
+    void setDepth(float depth);
+    
     void prepareToPlay(float sampleRate, float samplesPerBlock);
     
 private:
@@ -32,7 +34,12 @@ private:
     
     float angleChange = 0.f;
     
+    float lfoAmp = 0.5f;
+    float lfoOffset = 0.5f;
+    
     float Fs = 44100.f;
+    
+    float piX2 = (float) (M_PI * 2.f);
     
     void updateCurrentAngle(const int c);
     

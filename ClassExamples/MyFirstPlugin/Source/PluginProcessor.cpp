@@ -143,8 +143,13 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     distortion.setDrive(drive);
     //distortion.processBlock(buffer,drive);
     
-    float rate = 1.f;
+    float rate = 2.f;
     tremolo.setRate(rate);
+    float depth = 0.5f;
+    tremolo.setDepth(depth);
+    
+    float wet = 0.5f;
+    echo.setWet(wet);
     
     int numSamples = buffer.getNumSamples();
     
@@ -153,7 +158,8 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         auto * channelData = buffer.getWritePointer(channel);
         // Do something with the data
         //distortion.processInPlace(channelData, numSamples);
-        tremolo.processInPlace(channelData, numSamples, channel);
+        //tremolo.processInPlace(channelData, numSamples, channel);
+        echo.processInPlace(channelData, numSamples, channel);
         
     }
     

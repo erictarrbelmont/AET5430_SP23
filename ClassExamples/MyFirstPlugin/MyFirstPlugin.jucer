@@ -19,6 +19,8 @@
       <FILE id="nEXWfm" name="TremoloEffect.cpp" compile="1" resource="0"
             file="Source/TremoloEffect.cpp"/>
       <FILE id="DAa0v0" name="TremoloEffect.h" compile="0" resource="0" file="Source/TremoloEffect.h"/>
+      <FILE id="S70vuJ" name="EchoEffect.cpp" compile="1" resource="0" file="Source/EchoEffect.cpp"/>
+      <FILE id="Lp20eI" name="EchoEffect.h" compile="0" resource="0" file="Source/EchoEffect.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
