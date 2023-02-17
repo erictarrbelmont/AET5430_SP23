@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="npUz8z" name="MyFirstPlugin" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginFormats="buildAU"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginFormats="buildAU,buildStandalone"
               displaySplashScreen="1">
   <MAINGROUP id="SXW078" name="MyFirstPlugin">
     <GROUP id="{636F57BF-C1D3-A3F0-660A-7FA95ECF2C6D}" name="Source">
