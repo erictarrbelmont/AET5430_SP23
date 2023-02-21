@@ -97,6 +97,7 @@ void MyFirstPluginAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     // initialisation that you need..
     tremolo.prepareToPlay(sampleRate, samplesPerBlock);
     echo.prepareToPlay(sampleRate, samplesPerBlock);
+    gainEffect.prepareToPlay(sampleRate, samplesPerBlock);
 }
 
 void MyFirstPluginAudioProcessor::releaseResources()
@@ -139,7 +140,7 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         buffer.clear (i, 0, buffer.getNumSamples());
 
    
-    auto drive = 10.f;
+    //auto drive = 10.f;
     distortion.setDrive(drive);
     //distortion.processBlock(buffer,drive);
     
@@ -154,29 +155,33 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     
     int numSamples = buffer.getNumSamples();
     
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto * channelData = buffer.getWritePointer(channel);
-        // Do something with the data
-        //distortion.processInPlace(channelData, numSamples);
-        //tremolo.processInPlace(channelData, numSamples, channel);
-        echo.processInPlace(channelData, numSamples, channel);
-        
-    }
-    
 //    for (int channel = 0; channel < totalNumInputChannels; ++channel)
 //    {
-//        // Have a loop to go through each of the samples in our signal
-//        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
-//        {
-//            float x = buffer.getWritePointer(channel) [n];
+//        auto * channelData = buffer.getWritePointer(channel);
+//        // Do something with the data
+//        //distortion.processInPlace(channelData, numSamples);
+//        //tremolo.processInPlace(channelData, numSamples, channel);
+//        echo.processInPlace(channelData, numSamples, channel);
 //
-//            x = distortion.processSample(x, drive);
-//
-//            // scales amplitude by -12 dB
-//            buffer.getWritePointer(channel) [n] = x;
-//        }
 //    }
+    
+    double gain = juce::Decibels::decibelsToGain(gainValue_dB);
+    //double gain = std::pow(10.0,gainValue_dB/20.0);
+    gainEffect.setGain(gain);
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        // Have a loop to go through each of the samples in our signal
+        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
+        {
+            float x = buffer.getWritePointer(channel) [n];
+
+            x = distortion.processSample(x);
+            x = gainEffect.processSample(x, channel);
+
+            // scales amplitude by gain
+            buffer.getWritePointer(channel) [n] = x * gain;
+        }
+    }
 }
 
 //==============================================================================

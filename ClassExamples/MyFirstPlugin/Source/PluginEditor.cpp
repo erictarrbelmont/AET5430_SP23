@@ -20,10 +20,20 @@ MyFirstPluginAudioProcessorEditor::MyFirstPluginAudioProcessorEditor (MyFirstPlu
     gainKnob.addListener(this);
     // Specify location in window (xPos,yPos,width,height)
     gainKnob.setBounds(100,50,125,125);
-    gainKnob.setRange(-48.f,12.f,0.f); // (min, max, default)
+    gainKnob.setValue(0.0); // initial value
+    gainKnob.setRange(-48.0,12.0,0.1); // (min, max, interval)
     gainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
     addAndMakeVisible(gainKnob);
+    
+    driveKnob.addListener(this);
+    // Specify location in window (xPos,yPos,width,height)
+    driveKnob.setBounds(300,50,125,125);
+    driveKnob.setValue(5.0); // Initial value
+    driveKnob.setRange(1.0,10.0,0.01); // (min, max, interval)
+    driveKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    driveKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
+    addAndMakeVisible(driveKnob);
 }
 
 MyFirstPluginAudioProcessorEditor::~MyFirstPluginAudioProcessorEditor()
@@ -50,5 +60,13 @@ void MyFirstPluginAudioProcessorEditor::resized()
 
 void MyFirstPluginAudioProcessorEditor::sliderValueChanged(juce::Slider * slider)
 {
-    
+    // This is how we check which slider was moved  
+    if (slider == &gainKnob){
+        auto value = slider->getValue();
+        audioProcessor.gainValue_dB = value;
+    }
+    if (slider == &driveKnob){
+        audioProcessor.drive = slider->getValue();
+    }
+    //DBG(value);
 }

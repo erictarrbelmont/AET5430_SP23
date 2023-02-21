@@ -12,6 +12,7 @@
 #include "DistortionEffect.h"
 #include "TremoloEffect.h"
 #include "EchoEffect.h"
+#include "GainEffect.h"
 
 //==============================================================================
 /**
@@ -56,11 +57,16 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    
+    double gainValue_dB = 0.0;
+    double drive = 5.f;
+    
 private:
     
     DistortionEffect distortion;
     TremoloEffect   tremolo;
     EchoEffect      echo;
+    GainEffect      gainEffect;
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MyFirstPluginAudioProcessor)

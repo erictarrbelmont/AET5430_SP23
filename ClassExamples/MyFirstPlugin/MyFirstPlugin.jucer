@@ -21,6 +21,10 @@
       <FILE id="DAa0v0" name="TremoloEffect.h" compile="0" resource="0" file="Source/TremoloEffect.h"/>
       <FILE id="S70vuJ" name="EchoEffect.cpp" compile="1" resource="0" file="Source/EchoEffect.cpp"/>
       <FILE id="Lp20eI" name="EchoEffect.h" compile="0" resource="0" file="Source/EchoEffect.h"/>
+      <FILE id="kyScB7" name="AudioEffect.cpp" compile="1" resource="0" file="Source/AudioEffect.cpp"/>
+      <FILE id="QY8vvV" name="AudioEffect.h" compile="0" resource="0" file="Source/AudioEffect.h"/>
+      <FILE id="BEadXf" name="GainEffect.cpp" compile="1" resource="0" file="Source/GainEffect.cpp"/>
+      <FILE id="ECH5wP" name="GainEffect.h" compile="0" resource="0" file="Source/GainEffect.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
