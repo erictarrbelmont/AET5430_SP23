@@ -60,6 +60,7 @@ public:
     
     double gainValue_dB = 0.0;
     double drive = 5.f;
+    bool isBypassed = false;
     
 private:
     

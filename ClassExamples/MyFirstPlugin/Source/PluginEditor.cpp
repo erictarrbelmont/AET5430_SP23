@@ -34,6 +34,24 @@ MyFirstPluginAudioProcessorEditor::MyFirstPluginAudioProcessorEditor (MyFirstPlu
     driveKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     driveKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 75, 25);
     addAndMakeVisible(driveKnob);
+    
+    // Toggle Button
+    bypassButton.addListener(this);
+    bypassButton.setBounds(10,10,100,40);
+    bypassButton.setButtonText("Bypass");
+    bypassButton.setToggleState(false, juce::dontSendNotification);
+    bypassButton.setRadioGroupId(1);
+    addAndMakeVisible(bypassButton);
+    
+    // Combo Box
+    noteSelector.addListener(this);
+    noteSelector.setBounds(450, 10, 100, 50);
+    noteSelector.addItem("Whole",1);
+    noteSelector.addItem("Half",2);
+    noteSelector.addItem("Quarter",3);
+    noteSelector.addItem("8th",4);
+    noteSelector.setText("Select note...");
+    addAndMakeVisible(noteSelector);
 }
 
 MyFirstPluginAudioProcessorEditor::~MyFirstPluginAudioProcessorEditor()
@@ -69,4 +87,30 @@ void MyFirstPluginAudioProcessorEditor::sliderValueChanged(juce::Slider * slider
         audioProcessor.drive = slider->getValue();
     }
     //DBG(value);
+}
+
+void MyFirstPluginAudioProcessorEditor::buttonClicked(juce::Button *button){
+    if (button == &bypassButton){
+        // change value in PluginProcessor
+        audioProcessor.isBypassed = bypassButton.getToggleState();
+    }
+}
+
+void MyFirstPluginAudioProcessorEditor::comboBoxChanged(juce::ComboBox *comboBox){
+    
+    if (comboBox == &noteSelector){
+        if (noteSelector.getSelectedId() == 1){
+            // Do something for whole note
+        }
+        if (noteSelector.getSelectedId() == 2){
+            // Do something for half note
+        }
+        if (noteSelector.getSelectedId() == 3){
+            // Do something for quarter note
+        }
+        if (noteSelector.getSelectedId() == 4){
+            // Do something for 8th note
+        }
+    }
+    
 }

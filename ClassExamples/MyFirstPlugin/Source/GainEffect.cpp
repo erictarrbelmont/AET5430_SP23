@@ -12,5 +12,7 @@
 
 float GainEffect::processSample(float x, const int c){
     
+    float newVar = Fs/1000.f;
+    
     return gain * x;
 }

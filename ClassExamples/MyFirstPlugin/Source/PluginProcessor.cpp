@@ -164,22 +164,23 @@ void MyFirstPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 //        echo.processInPlace(channelData, numSamples, channel);
 //
 //    }
-    
-    double gain = juce::Decibels::decibelsToGain(gainValue_dB);
-    //double gain = std::pow(10.0,gainValue_dB/20.0);
-    gainEffect.setGain(gain);
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        // Have a loop to go through each of the samples in our signal
-        for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
+    if (!isBypassed){
+        double gain = juce::Decibels::decibelsToGain(gainValue_dB);
+        //double gain = std::pow(10.0,gainValue_dB/20.0);
+        gainEffect.setGain(gain);
+        for (int channel = 0; channel < totalNumInputChannels; ++channel)
         {
-            float x = buffer.getWritePointer(channel) [n];
+            // Have a loop to go through each of the samples in our signal
+            for (int n = 0 ; n < buffer.getNumSamples() ; ++n)
+            {
+                float x = buffer.getWritePointer(channel) [n];
 
-            x = distortion.processSample(x);
-            x = gainEffect.processSample(x, channel);
+                x = distortion.processSample(x);
+                x = gainEffect.processSample(x, channel);
 
-            // scales amplitude by gain
-            buffer.getWritePointer(channel) [n] = x * gain;
+                // scales amplitude by gain
+                buffer.getWritePointer(channel) [n] = x * gain;
+            }
         }
     }
 }

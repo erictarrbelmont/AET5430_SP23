@@ -10,10 +10,10 @@
 
 #include "AudioEffect.h"
 
-float AudioEffect::processSample(float x, const int c){
-    
-    return x;
-}
+//float AudioEffect::processSample(float x, const int c){
+//    
+//    return x;
+//}
 
 
 void AudioEffect::processBlock(juce::AudioBuffer<float> &buffer)

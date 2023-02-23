@@ -16,6 +16,11 @@
 class GainEffect : public AudioEffect // syntax for inheritance
 {
 public:
+    
+    ~GainEffect () override {
+        AudioEffect::~AudioEffect();
+    } ;
+    
     // Make a new function that "overrides" the one in AudioEffect
     float processSample(float x, const int c) override;
     

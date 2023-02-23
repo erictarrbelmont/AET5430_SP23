@@ -17,17 +17,31 @@ class AudioEffect
 {
 public:
     
-    // Make this function to be able to be overridden "virtual"
-    virtual float processSample(float x, const int c);
+    virtual ~AudioEffect() {
+        // if there is anything to delete, do it here
+    };
+    
+    // Make this function to be able to be overridden "virtual" (optional)
+    //virtual float processSample(float x, const int c);
+    
+    // Make this a "pure" virtual function, must be overridden
+    virtual float processSample(float x, const int c) = 0;
     
     void processBlock(juce::AudioBuffer<float> & buffer);
     
     void processInPlace(float * buffer, const int numSamples, const int channel);
     
     void prepareToPlay(float sampleRate, int samplesPerBlock);
+
+protected:
+    // Used with inheritance
+    // "Protected" variables in
+    // base class become "private"
+    // variables in inherited class
+    float Fs;
     
 private:
     
-    float Fs;
+    
     int bufferSize;
 };
